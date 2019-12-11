@@ -11,5 +11,5 @@ def flash_errors(form):
 
 
 class loginForm(FlaskForm):
-    user = StringField('user', validators=[DataRequired()])
-    passwd = PasswordField('pass', validators=[DataRequired()])
+    user = StringField('Nombre de usuario', validators=[DataRequired()])
+    passwd = PasswordField('Contraseña', validators=[DataRequired()])

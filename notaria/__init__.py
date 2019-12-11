@@ -2,7 +2,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 
-from notaria.views import index
 
 db = SQLAlchemy()
 csrf_protect = CSRFProtect()
@@ -13,6 +12,7 @@ def create_app():
     csrf_protect.init_app(app)
     db.init_app(app)
     
+    from notaria.views import index
     app.register_blueprint(index.bp)
 
     return app

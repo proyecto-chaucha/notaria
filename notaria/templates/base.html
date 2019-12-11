@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Control Panel</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons|Montserrat" rel="stylesheet">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<style type="text/css">
+		body {font-family: 'Montserrat', sans-serif; display: flex; min-height: 100vh; flex-direction: column; }
+		main { flex: 1 0 auto; }
+		header, main, footer { padding-left: 300px; }
+		@media only screen and (max-width : 992px;) {header, main, footer { padding-left: 0;} }
+		ul.sidenav.sidenav-fixed ul.collapsible-accordion a.collapsible-header{ padding:0 30px; }
+		.padding { padding-top: 3.6rem; }
+	</style>
+</head>
+<body>
+	<header>
+		{% if session['user'] %}
+			<div class="no-padding right">
+				<a class="waves-effect white btn btn-flat dropdown-trigger btn-large" href="#" data-target="dropdown1"><i class="material-icons">account_circle</i></a>
+				<ul id='dropdown1' class='dropdown-content'>
+					<li><a href="#!" class="black-text">Preferencias</a></li>
+					<li><a href="/logout" class="black-text">Cerrar sesión</a></li>
+				</ul>
+			</div>
+		{% else %}
+			<div class="padding"></div>
+		{% endif %}
+
+		<div class="hide-on-large-only">
+		<a href="#" data-target="nav-mobile" class="btn btn-flat btn-large sidenav-trigger"><i class="material-icons">menu</i></a>
+		</div>
+
+		<ul id="nav-mobile" class="sidenav sidenav-fixed green accent-2">
+			<li>&nbsp;</li>
+			{% if session['user'] %}
+				{% include 'nav_admin.html' %}
+			{% else %}
+				{% include 'nav_login.html' %}
+			{% endif %}
+	 	</ul>
+	</header>
+
+	<main>
+		<div class="section container">
+			{% block body %}
+			{% endblock %}
+		</div>
+	</main>
+
+	<script type="text/javascript">
+	$( document ).ready(function() {
+		$('.collapsible').collapsible();
+		$('.sidenav').sidenav();
+		$(".dropdown-trigger").dropdown({
+			coverTrigger: false,
+			constrainWidth: false
+		});
+	});
+	</script>
+
+</body>
+</html>

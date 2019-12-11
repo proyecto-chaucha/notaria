@@ -1,7 +1,9 @@
 import functools
 from flask import Blueprint, render_template, session, redirect, url_for, request
-from .utils import login_required
-from notaria.forms import users
+
+from notaria.views.utils import login_required
+from notaria.forms.login import loginForm 
+from notaria.models.users import userModel
 
 
 bp = Blueprint('index', __name__, url_prefix='/')
@@ -14,10 +16,17 @@ def home():
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
-    form = users.loginForm(request.form)
+    form = loginForm(request.form)
     if form.validate_on_submit():
-        session['user'] = form.user.data
-        return "OK"
+        submitted_username = form.user.data
+
+        user = userModel.query.filter_by(username=submitted_username).first()
+
+        if user and user.username == submitted_username:
+            session['user'] = form.user.data
+            return redirect(url_for('index.admin'))
+        else:
+            return ":C"
 
     return render_template('login.html', form=form)
 
@@ -27,12 +36,12 @@ def login():
 def logout():
     if 'user' in session:
     	session.pop('user', None)
-    	return "logout"
+    	return redirect(url_for('index.home'))
     else:
-    	redirect(url_for('index.login'))
+    	return redirect(url_for('index.login'))
 
 
 @bp.route('/admin')
 @login_required
 def admin():
-    return "logged :D"
+    return render_template('admin.html')

@@ -1,8 +1,36 @@
-<h1 class="title">Iniciar sesión</h1>
+{% extends "base.html" %}
+{% block body %}
 
-<form action="/login" method="post">
-	{{ form.csrf_token }}
-	{{ form.user }}
-	{{ form.passwd }}
-  <button type="submit">enviar</button>
-</form>
+<div class="row">
+	<div class="col l12 m12 s12">
+		<div class="card">
+			<div class="card-content">
+				<span class="card-title">Iniciar sesión</span>
+				<div class="row">
+					<form class="col s12" action="/login" method="POST">
+						{{ form.csrf_token }}
+						
+						<div class="row">
+							<div class="input-field col s12">
+								{{ form.user }}
+								{{ form.user.label }}
+							</div>
+							<div class="input-field col s12">
+								{{ form.passwd }}
+								{{ form.passwd.label }}
+							</div>
+						</div>
+						<p>
+							<button class="btn waves-effect right green accent-2 btn-flat" type="submit" name="action">
+								<i class="material-icons">send</i>
+							</button>
+						</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
