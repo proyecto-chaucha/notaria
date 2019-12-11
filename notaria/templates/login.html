@@ -1,0 +1,8 @@
+<h1 class="title">Iniciar sesión</h1>
+
+<form action="/login" method="post">
+	{{ form.csrf_token }}
+	{{ form.user }}
+	{{ form.passwd }}
+  <button type="submit">enviar</button>
+</form>
