@@ -3,6 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired, Length, NumberRange, ValidationError
 
+
 def flash_errors(form):
     for field, errors in form.errors.items():
         for error in errors:

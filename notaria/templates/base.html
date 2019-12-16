@@ -13,19 +13,30 @@
 		main { flex: 1 0 auto }
 		header, main, footer { padding-left: 300px }
 		@media only screen and (max-width : 992px) {header, main, footer { padding-left: 0} }
+		input[type="text"]:not(.browser-default):focus:not([readonly]),
+		input[type="password"]:not(.browser-default):focus:not([readonly]) { border-bottom: #6e6e6e; box-shadow: 0 1px 0 0 #6e6e6e; }
+		input[type="text"]:not(.browser-default):focus:not([readonly]) + label,
+		input[type="password"]:not(.browser-default):focus:not([readonly]) + label { color: #6e6e6e; }
 		ul.sidenav.sidenav-fixed ul.collapsible-accordion a.collapsible-header{ padding:0 30px }
 		.padding { padding-top: 3.6rem; }
 		.nav-bg { background-color: #E67373; }
 		.body-bg { background-color: #FEFEFE; }
+		#toast-container {
+  top: 5%;
+  bottom: auto !important;
+  left: 50%;
+  right: auto !important;
+  text-align: center;
+}
 	</style>
 </head>
 <body class="body-bg">
 	<header>
 		<div class="no-padding right">
 			{% if session['user'] %}
-			<a class="waves-effect body-bg btn btn-flat dropdown-trigger btn-large" href="/logout">Cerrar sesión</a>
+			<a class="body-bg btn btn-flat white dropdown-trigger" href="/logout">Cerrar sesión</a>
 			{% else %}
-			<a class="waves-effect body-bg btn btn-flat dropdown-trigger btn-large" href="/login">Iniciar sesión</a>
+			<a class="body-bg btn btn-flat white dropdown-trigger" href="/login">Ingresar</a>
 			{% endif %}
 		</div>
 
@@ -49,16 +60,28 @@
 		</div>
 	</main>
 
+	<footer class="page-footer white black-text">
+		<div class="container center">
+			Proyecto Chaucha
+		</div>
+	</footer>
+            
+
 	<script type="text/javascript">
 	$( document ).ready(function() {
-		$('.collapsible').collapsible();
 		$('.sidenav').sidenav();
-		$(".dropdown-trigger").dropdown({
-			coverTrigger: false,
-			constrainWidth: false
-		});
+		{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				{% for category, message in messages %}
+				    M.toast({
+				    	html: '<span>{{ message }}</span>'
+				});
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
 	});
 	</script>
 
 </body>
 </html>
+

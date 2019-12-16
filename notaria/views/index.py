@@ -1,12 +1,12 @@
 import functools
-from flask import Blueprint, render_template, session, redirect, url_for, request
+from flask import Blueprint, render_template, session, redirect, url_for, request, flash
 
 from notaria.views.utils import login_required
-from notaria.forms.login import loginForm 
-from notaria.models.users import userModel
-
+from notaria.forms.login import loginForm
+from notaria.crypto.hash import validate_user
 
 bp = Blueprint('index', __name__, url_prefix='/')
+
 
 @bp.route('/')
 def home():
@@ -18,15 +18,16 @@ def home():
 def login():
     form = loginForm(request.form)
     if form.validate_on_submit():
-        submitted_username = form.user.data
 
-        user = userModel.query.filter_by(username=submitted_username).first()
+        valid_user = validate_user(form)
 
-        if user and user.username == submitted_username:
+        if valid_user:
             session['user'] = form.user.data
             return redirect(url_for('index.admin'))
+        elif valid_user == None:
+            flash("Usuario no existe")
         else:
-            return ":C"
+            flash("Contraseña incorrecta")
 
     return render_template('login.html', form=form)
 
@@ -35,10 +36,10 @@ def login():
 @login_required
 def logout():
     if 'user' in session:
-    	session.pop('user', None)
-    	return redirect(url_for('index.home'))
+        session.pop('user', None)
+        return redirect(url_for('index.home'))
     else:
-    	return redirect(url_for('index.login'))
+        return redirect(url_for('index.login'))
 
 
 @bp.route('/admin')
