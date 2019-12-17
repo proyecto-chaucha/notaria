@@ -1,9 +1,10 @@
 import functools
 from flask import Blueprint, render_template, session, redirect, url_for, request, flash
 
-from notaria.views.utils import login_required
-from notaria.forms.login import loginForm
-from notaria.crypto.hash import validate_user
+from notaria.views.restrictions import login_required, login_restricted
+from notaria.forms.users import login_form, register_form
+from notaria.functions.users import validate_user, register_user
+
 
 bp = Blueprint('index', __name__, url_prefix='/')
 
@@ -30,6 +31,17 @@ def login():
             flash("Contraseña incorrecta")
 
     return render_template('login.html', form=form)
+
+
+@bp.route('/register', methods=['GET', 'POST'])
+@login_restricted
+def register():
+    form = registerForm(request.form)
+
+    if form.validate_on_submit():
+        register_user(form)
+    
+    return render_template('register.html', form=form)
 
 
 @bp.route('/logout')

@@ -4,7 +4,7 @@ import os
 SECRET_KEY = 'This is an UNSECURE Secret. CHANGE THIS for production environments.'
 
 # SQLAlchemy settings
-SQLALCHEMY_DATABASE_URI = 'postgresql://notaria:notaria@localhost/notaria'
+SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/test.db'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 # Flask settings

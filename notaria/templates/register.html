@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="row">
+	<div class="col s12 l8 offset-l2">
+		<div class="card">
+			<div class="card-content">
+				<span class="card-title">Iniciar sesión</span>
+				<div class="row">
+					<form class="col s12" action="/register" method="POST">
+						{{ form.csrf_token }}
+						
+						<div class="row">
+							<div class="input-field col s12">
+								{{ form.user }}
+								{{ form.user.label }}
+							</div>
+							<div class="input-field col s12">
+								{{ form.email }}
+								{{ form.email.label }}
+							</div>
+							<div class="input-field col s12">
+								{{ form.passwd }}
+								{{ form.passwd.label }}
+							</div>
+						</div>
+						<p>
+							<button class="btn right white btn-flat" type="submit" name="action">
+								<i class="material-icons">send</i>
+							</button>
+						</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

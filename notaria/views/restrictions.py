@@ -9,3 +9,12 @@ def login_required(f):
             return redirect(url_for('index.login'))
         return f(*args, **kwargs)
     return decorated_function
+
+
+def login_restricted(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user' in session:
+            return redirect(url_for('index.home'))
+        return f(*args, **kwargs)
+    return decorated_function
