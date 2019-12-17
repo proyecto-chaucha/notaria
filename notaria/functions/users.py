@@ -23,6 +23,11 @@ def register_user(form):
     passwd = sha3_hex(form.passwd.data + app.config['SECRET_KEY'])
     email = form.email.data
 
-    user = user_model(username=username, passwd=passwd, email=email)
-    db.session.add(user)
-    db.session.commit()
+    if validate_user(form) == None:
+        user = user_model(username=username, passwd=passwd, email=email)
+        db.session.add(user)
+        db.session.commit()
+
+        return True
+    else:
+        return False
