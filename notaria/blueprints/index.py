@@ -1,7 +1,7 @@
 import functools
 from flask import Blueprint, render_template, session, redirect, url_for, request, flash
 
-from notaria.views.restrictions import login_required, login_restricted
+from notaria.blueprints.restrictions import login_required, login_restricted
 from notaria.forms.users import login_form, register_form
 from notaria.functions.users import validate_user, register_user
 
@@ -17,7 +17,7 @@ def home():
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
-    form = loginForm(request.form)
+    form = login_form(request.form)
     if form.validate_on_submit():
 
         valid_user = validate_user(form)
@@ -36,7 +36,7 @@ def login():
 @bp.route('/register', methods=['GET', 'POST'])
 @login_restricted
 def register():
-    form = registerForm(request.form)
+    form = register_form(request.form)
 
     if form.validate_on_submit():
         register_user(form)
