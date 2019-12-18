@@ -3,6 +3,13 @@
 
 <h4>Hola {{ session['user'] }} :D</h4>
 
+<p class="mono">
+{% for address in addresses %}
+{{ address }}<br>
+{% endfor %}
+</p>
+
+
 {% endblock %}
 
 {% block nav %}
