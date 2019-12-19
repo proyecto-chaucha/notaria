@@ -1,20 +1,14 @@
-from pycoin.networks.registry import network_for_netcode
+import bitcoin
 from os import urandom
-
-network = network_for_netcode("CHA")
 
 user = 'cesar'
 email = 'cvxz@pm.me'
 SECRET_KEY = urandom(32)
 
-key = network.keys.bip32_seed(user.encode() + SECRET_KEY + email.encode())
-print(key.hwif(as_private=1))
-print(key.hwif())
+master_key = bitcoin.bip32_master_key((user + email).encode() + SECRET_KEY)
+print(master_key)
 
-for i in range(12):
-	path = "0/%i/5" % i
-	addr = key.subkey_for_path(path)
-
-	print(path)
-	print(addr.wif())
-	print(addr.address())
+for i in range(10):
+	child = bitcoin.bip32_ckd(master_key, i)
+	addr = bitcoin.bip32_extract_key(child)
+	print(bitcoin.privtoaddr(addr, 0x58))

@@ -1,6 +1,7 @@
 appdirs==1.4.3
 attrs==19.3.0
 bcrypt==3.1.7
+bitcoin==1.1.42
 blinker==1.4
 cffi==1.13.2
 Click==7.0
@@ -14,8 +15,6 @@ Jinja2==2.10.3
 MarkupSafe==1.1.1
 passlib==1.7.2
 pathspec==0.6.0
-psycopg2==2.8.4
-pycoin==0.90.20190728
 pycparser==2.19
 regex==2019.12.9
 six==1.13.0

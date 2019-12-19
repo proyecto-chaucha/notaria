@@ -1,4 +1,3 @@
-import functools
 from flask import Blueprint, render_template, session, redirect, url_for, request, flash
 
 from notaria.blueprints.restrictions import login_required, login_restricted

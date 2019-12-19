@@ -3,12 +3,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from flask.cli import with_appcontext
-from pycoin.networks.registry import network_for_netcode
 
 
 db = SQLAlchemy()
 csrf_protect = CSRFProtect()
-chaucha = network_for_netcode("CHA")
 
 
 def create_app():
