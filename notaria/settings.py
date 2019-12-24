@@ -9,3 +9,5 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 # Flask settings
 CSRF_ENABLED = True
+
+INSIGHT = 'http://insight.chaucha.cl'

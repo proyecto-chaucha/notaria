@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, session, redirect, url_for, reques
 from notaria.blueprints.restrictions import login_required, login_restricted
 from notaria.forms.users import login_form, register_form
 from notaria.functions.users import validate_user, register_user
-from notaria.functions.chaucha import get_address
+from notaria.functions.chaucha import get_address, get_unspent
 
 
 bp = Blueprint('index', __name__, url_prefix='/')
@@ -63,5 +63,7 @@ def logout():
 @bp.route('/admin')
 @login_required
 def admin():
-    addresses = get_address(session['user'])
-    return render_template('admin.html', addresses=addresses)
+    address = get_address(session['user'])
+    unspent = get_unspent(address)
+
+    return render_template('admin.html', address=address, unspent=unspent)
