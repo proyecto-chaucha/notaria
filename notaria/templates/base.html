@@ -11,7 +11,7 @@
 	<style type="text/css">
 		body {font-family: 'Karla', sans-serif; display: flex; min-height: 100vh; flex-direction: column; }
 		main { flex: 1 0 auto }
-		header, main, footer { padding-left: 300px }
+		header, main, footer { padding-left: 315px }
 		@media only screen and (max-width : 992px) {header, main, footer { padding-left: 0} }
 		input[type="text"]:not(.browser-default):focus:not([readonly]),
 		input[type="password"]:not(.browser-default):focus:not([readonly]) { border-bottom: #6e6e6e; box-shadow: 0 1px 0 0 #6e6e6e; }
@@ -19,10 +19,11 @@
 		input[type="password"]:not(.browser-default):focus:not([readonly]) + label { color: #6e6e6e; }
 		ul.sidenav.sidenav-fixed ul.collapsible-accordion a.collapsible-header{ padding:0 30px }
 		.padding { padding-top: 3.6rem; }
-		.nav-bg { background-color: #69F4BD; }
+		.nav-bg { background-color: #ddd; box-shadow: 0px 0px transparent; width: 250px; }
 		.body-bg { background-color: #FEFEFE; }
 		#toast-container { text-align: center; }
 		.mono { font-family: 'Courier Prime', monospace; }
+		.btn:hover, .btn-large:hover, .btn-small:hover { background-color: transparent; }
 	</style>
 </head>
 <body class="body-bg">
@@ -50,7 +51,7 @@
 	</header>
 
 	<main>
-		<div class="section container">
+		<div class="container section">
 			{% block body %}
 			{% endblock %}
 		</div>
