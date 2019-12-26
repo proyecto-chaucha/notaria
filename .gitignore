@@ -2,6 +2,9 @@
 Pipfile
 Pipfile.lock
 
+# DB
+test.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
