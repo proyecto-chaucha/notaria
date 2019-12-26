@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block body %}
 
-<h4>Hola {{ session['user'] }} :D</h4>
+<div class="center">
+	<h2>Hola {{ session['user'] }} :D</h2>
 
-<p class="mono">{{ address }}</p>
-<p class="mono">{{ unspent['confirmed'] }} CHA</p>
-
+	<p>Tu dirección es <span  class="mono">{{ address }}</span></p>
+	<p class="mono">{{ unspent['confirmed'] }} CHA</p>
+</div>
 
 {% endblock %}
 
