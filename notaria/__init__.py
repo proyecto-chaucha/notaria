@@ -15,8 +15,9 @@ def create_app():
     csrf_protect.init_app(app)
     db.init_app(app)
 
-    from notaria.blueprints import index
+    from notaria.blueprints import index, wallet
     app.register_blueprint(index.bp)
+    app.register_blueprint(wallet.bp)
 
     app.cli.add_command(init_db_command)
 

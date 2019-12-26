@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, session, redirect, url_for, reques
 from notaria.blueprints.restrictions import login_required, login_restricted
 from notaria.forms.users import login_form, register_form
 from notaria.functions.users import validate_user, register_user
-from notaria.functions.chaucha import get_address, get_unspent
+from notaria.functions.wallet import get_address, get_unspent
 
 
 bp = Blueprint('index', __name__, url_prefix='/')
