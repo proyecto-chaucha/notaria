@@ -24,7 +24,7 @@ def login():
 
         if valid_user:
             session['user'] = form.user.data
-            return redirect(url_for('index.admin'))
+            return redirect(url_for('wallet.index'))
         elif valid_user == None:
             flash("Usuario no existe")
         else:
@@ -58,12 +58,3 @@ def logout():
         return redirect(url_for('index.home'))
     else:
         return redirect(url_for('index.login'))
-
-
-@bp.route('/admin')
-@login_required
-def admin():
-    privkey, address = get_keychain(session['user'])
-    unspent = get_unspent(address)
-
-    return render_template('admin.html', address=address, unspent=unspent)

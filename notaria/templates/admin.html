@@ -2,9 +2,14 @@
 {% block body %}
 
 <div class="center">
-	<h2>Hola {{ session['user'] }} :D</h2>
+	<h2 class="title">Hola {{ session['user'] }} &#128516;</h2>
 
-	<p>Tu dirección es <span  class="mono">{{ address }}</span></p>
+	<p class="mono">
+		<img src="{{ qrcode(address, back_color='69F4BD', fill_color='444', border=2, box_size=9) }}">
+		<br>
+		{{ address }}
+	</p>
+
 	<p class="mono">{{ unspent['confirmed'] }} CHA</p>
 </div>
 

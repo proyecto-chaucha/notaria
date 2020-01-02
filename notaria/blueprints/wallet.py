@@ -6,6 +6,9 @@ from notaria.functions.wallet import get_keychain, get_unspent
 bp = Blueprint('wallet', __name__, url_prefix='/wallet')
 
 @bp.route('/')
-def home():
-    hello = "Wallet blueprint"
-    return render_template('index.html', hello=hello)
+@login_required
+def index():
+    privkey, address = get_keychain(session['user'])
+    unspent = get_unspent(address)
+
+    return render_template('admin.html', address=address, unspent=unspent)

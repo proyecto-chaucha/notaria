@@ -10,6 +10,7 @@ Click==7.0
 cryptography==2.8
 Flask==1.1.1
 Flask-Mail==0.9.1
+Flask-QRcode==3.0.0
 Flask-SQLAlchemy==2.4.1
 Flask-WTF==0.14.2
 idna==2.8
@@ -18,7 +19,9 @@ Jinja2==2.10.3
 MarkupSafe==1.1.1
 passlib==1.7.2
 pathspec==0.6.0
+Pillow==7.0.0
 pycparser==2.19
+qrcode==6.1
 regex==2019.12.9
 requests==2.22.0
 six==1.13.0
