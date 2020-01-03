@@ -1,2 +1,11 @@
-<li><a href="/">Página principal<i class="material-icons">home</i></a></li>
-<li><a href="/wallet">Wallet<i class="material-icons">home</i></a></li>
+<li><a href="{{ url_for('index.home') }}">Página principal<i class="material-icons">home</i></a></li>
+<ul class="collapsible collapsible-accordion">
+	<li><a class="collapsible-header">Wallet<i class="material-icons">account_balance_wallet</i></a>
+		<div class="collapsible-body">
+			<ul>
+				<li><a href="{{ url_for('wallet.index') }}">Saldo</a></li>
+				<li><a href="{{ url_for('wallet.send') }}">Recibir</a></li>
+			</ul>
+		</div>
+	</li>
+</ul>

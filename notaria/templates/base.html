@@ -68,6 +68,7 @@
 	<script type="text/javascript">
 	$( document ).ready(function() {
 		$('.sidenav').sidenav();
+		$('.collapsible').collapsible();
 		{% with messages = get_flashed_messages(with_categories=true) %}
 			{% if messages %}
 				{% for category, message in messages %}
