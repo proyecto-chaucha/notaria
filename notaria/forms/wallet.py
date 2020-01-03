@@ -6,4 +6,4 @@ from wtforms.validators import DataRequired, Length, NumberRange, ValidationErro
 
 class send_form(FlaskForm):
     address = StringField('Destinatario', validators=[DataRequired()])
-    amout = DecimalField('Monto', validators=[DataRequired()])
+    amount = DecimalField('Monto', validators=[DataRequired()])

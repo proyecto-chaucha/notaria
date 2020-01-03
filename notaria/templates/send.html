@@ -2,20 +2,20 @@
 {% block body %}
 
 <div class="row">
-	<div class="col s12 l8 offset-l2">
-		<h3 class="title">Iniciar sesión</h3>
+	<div class="col l8 offset-l2">
+		<h3 class="title">Extraer saldo</h3>
 		<div class="row">
-			<form class="col s12" action="{{ url_for('index.login') }}" method="POST">
+			<form class="col s12" action="{{ url_for('wallet.send') }}" method="POST">
 				{{ form.csrf_token }}
 				
 				<div class="row">
-					<div class="input-field col s12">
-						{{ form.user }}
-						{{ form.user.label }}
+					<div class="input-field col s8">
+						{{ form.address }}
+						{{ form.address.label }}
 					</div>
-					<div class="input-field col s12">
-						{{ form.passwd }}
-						{{ form.passwd.label }}
+					<div class="input-field col s4">
+						{{ form.amount }}
+						{{ form.amount.label }}
 					</div>
 					<button class="btn right white btn-flat" type="submit" name="action">
 						<i class="material-icons">send</i>

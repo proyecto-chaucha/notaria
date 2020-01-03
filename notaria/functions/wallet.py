@@ -2,7 +2,7 @@ from notaria.models.users import user_model
 from notaria.functions.crypto import sha3_hex
 from flask import current_app as app
 from requests import get
-from bitcoin import privtoaddr, mktx
+from bitcoin import privtoaddr, mktx, sign
 
 def get_keychain(username, n=0):
     user = user_model.query.filter_by(username=username).first()
@@ -43,10 +43,17 @@ def get_unspent(addr):
 
     return result
 
-def create_tx(username, amount, receptor, op_return = ''):
+def create_tx(username, form, op_return = ''):
 
     privkey, address = get_keychain(username)
-    balance, inputs, _ = get_unspent(address)
+    unspent = get_unspent(address)
+
+    inputs = unspent['inputs']
+    
+    balance = int(float(unspent['confirmed'])*1e8)
+    amount = int(float(form.amount.data)*1e8)
+    
+    receptor = form.address.data
 
     if not len(receptor) == 34 and not receptor.startswith('c'):
         return "Dirección inválida"
@@ -57,30 +64,34 @@ def create_tx(username, amount, receptor, op_return = ''):
     elif amount <= 0:
         return "Monto inválido"
 
-    amount *= 1e8
     used_utxo = 0
+    used_inputs = []
 
     for utxo in inputs:
         used_utxo += utxo['value']
+        used_inputs.append(utxo)
+
         if used_utxo >= amount:
             break
 
     output = []
-    min_fee = (used_utxo - amount) - 0.001*1e8
+    min_fee = (used_utxo - amount) - 100000
 
     if min_fee >= 0:
         output.append({'address': receptor, 'value': amount})
         output.append({'address': address, 'value' : min_fee})
 
     elif min_fee == 0:
-        output.append({'address': receptor, 'value': amount - 0.001*1e8})
+        output.append({'address': receptor, 'value': amount - 100000})
 
     else:
         return "?????"
 
-    tx = mktx(used_utxo, output)
+    print(used_inputs)
+    print(output)
+    tx = mktx(used_inputs, output)
 
-    for i, _ in enumeratr(used_utxo):
+    for i, _ in enumerate(used_inputs):
         tx = sign(tx, i, privkey)
 
     return tx
