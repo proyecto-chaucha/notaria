@@ -80,12 +80,8 @@ def create_tx(username, form, op_return = ''):
     if min_fee >= 0:
         output.append({'address': receptor, 'value': amount})
         output.append({'address': address, 'value' : min_fee})
-
-    elif min_fee == 0:
-        output.append({'address': receptor, 'value': amount - 100000})
-
     else:
-        return "?????"
+        output.append({'address': receptor, 'value': amount - 100000})
 
     print(used_inputs)
     print(output)

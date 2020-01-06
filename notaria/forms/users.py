@@ -8,8 +8,8 @@ class login_form(FlaskForm):
     user = StringField('Nombre de usuario', validators=[DataRequired()])
     passwd = PasswordField('Contraseña', validators=[DataRequired()])
 
+
 class register_form(FlaskForm):
     user = StringField('Nombre de usuario', validators=[DataRequired()])
     email = StringField('Correo electrónico', validators=[DataRequired()])
     passwd = PasswordField('Contraseña', validators=[DataRequired()])
-

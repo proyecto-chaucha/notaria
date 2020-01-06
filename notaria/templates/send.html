@@ -3,7 +3,8 @@
 
 <div class="row">
 	<div class="col l8 offset-l2">
-		<h3 class="title">Extraer saldo</h3>
+		<h3 class="title">Transferir Chauchas</h3>
+		<p><b>Saldo:</b> <span class="mono">{{ unspent['confirmed'] }} CHA</span></p>
 		<div class="row">
 			<form class="col s12" action="{{ url_for('wallet.send') }}" method="POST">
 				{{ form.csrf_token }}

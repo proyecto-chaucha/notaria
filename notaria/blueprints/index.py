@@ -40,13 +40,13 @@ def register():
 
     if form.validate_on_submit():
         valid_registration = register_user(form)
-        
+
         if valid_registration:
             flash("Usuario registrado correctamente")
             return redirect(url_for('index.login'))
         else:
             flash("Nombre de usuario o email utilizado")
-    
+
     return render_template('register.html', form=form)
 
 
