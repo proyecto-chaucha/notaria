@@ -2,7 +2,8 @@ from notaria.models.users import user_model
 from notaria.functions.crypto import sha3_hex, check_addr
 from flask import current_app as app
 from requests import get
-from bitcoin import privtoaddr, mktx, sign
+from bitcoin import privtoaddr, mktx, sign, mksend
+from binascii import a2b_hex
 
 
 def get_keychain(username, n=0):
@@ -57,7 +58,7 @@ def create_tx(username, form, op_return=''):
 
     receptor = form.address.data
 
-    if not check_addr(receptor):
+    if check_addr(receptor):
         return "Dirección inválida"
 
     elif amount > balance:
@@ -76,18 +77,20 @@ def create_tx(username, form, op_return=''):
         if used_utxo >= amount:
             break
 
-    output = []
-    min_fee = (used_utxo - amount) - 100000
+    outputs = [{'address': receptor, 'value': amount}]
 
-    if min_fee >= 0:
-        output.append({'address': receptor, 'value': amount})
-        output.append({'address': address, 'value': min_fee})
-    else:
-        output.append({'address': receptor, 'value': amount - 100000})
+    template_tx = mktx(used_inputs, outputs)
+    size = len(a2b_hex(template_tx))
 
-    print(used_inputs)
-    print(output)
-    tx = mktx(used_inputs, output)
+    # FEE = 0.01 CHA/kb
+    fee = int((size/1024)*0.01*1e8)
+    # MAX FEE = 0.1 CHA
+    fee = 1e7 if fee > 1e7 else fee
+
+    if used_utxo == amount:
+        outputs[0] = {'address': receptor, 'value': int(amount - fee)}
+
+    tx = mksend(used_inputs, outputs, address, fee)
 
     for i, _ in enumerate(used_inputs):
         tx = sign(tx, i, privkey)
