@@ -1,8 +1,9 @@
 from notaria.models.users import user_model
-from notaria.functions.crypto import sha3_hex
+from notaria.functions.crypto import sha3_hex, check_addr
 from flask import current_app as app
 from requests import get
 from bitcoin import privtoaddr, mktx, sign
+
 
 def get_keychain(username, n=0):
     user = user_model.query.filter_by(username=username).first()
@@ -43,19 +44,20 @@ def get_unspent(addr):
 
     return result
 
-def create_tx(username, form, op_return = ''):
+
+def create_tx(username, form, op_return=''):
 
     privkey, address = get_keychain(username)
     unspent = get_unspent(address)
 
     inputs = unspent['inputs']
-    
+
     balance = int(float(unspent['confirmed'])*1e8)
     amount = int(float(form.amount.data)*1e8)
-    
+
     receptor = form.address.data
 
-    if not len(receptor) == 34 and not receptor.startswith('c'):
+    if not check_addr(receptor):
         return "Dirección inválida"
 
     elif amount > balance:
@@ -79,7 +81,7 @@ def create_tx(username, form, op_return = ''):
 
     if min_fee >= 0:
         output.append({'address': receptor, 'value': amount})
-        output.append({'address': address, 'value' : min_fee})
+        output.append({'address': address, 'value': min_fee})
     else:
         output.append({'address': receptor, 'value': amount - 100000})
 

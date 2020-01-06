@@ -3,6 +3,7 @@ from flask import current_app as app
 from notaria.functions.crypto import sha3_hex
 from notaria import db
 
+
 def validate_user(form):
     username = form.user.data.lower().strip()
     passwd = form.passwd.data.lower().strip()
