@@ -18,9 +18,10 @@ def create_app():
     db.init_app(app)
     qrcode.init_app(app)
 
-    from notaria.blueprints import index, wallet
+    from notaria.blueprints import index, wallet, cert
     app.register_blueprint(index.bp)
     app.register_blueprint(wallet.bp)
+    app.register_blueprint(cert.bp)
 
     app.cli.add_command(init_db_command)
 

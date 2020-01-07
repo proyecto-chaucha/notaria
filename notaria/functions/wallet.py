@@ -80,7 +80,7 @@ def create_tx(username, form, op_return=''):
 
     template_tx = mktx(used_inputs, outputs)
 
-    # size = unsigned tx + (71 bytes * signature)
+    # size = unsigned tx + (65 bytes * signature)
     size = len(a2b_hex(template_tx)) + 65*len(used_inputs)
 
     # FEE = 0.01 CHA/kb

@@ -11,7 +11,7 @@
 	<style type="text/css">
 		body {font-family: 'Karla', sans-serif; display: flex; min-height: 100vh; flex-direction: column; }
 		main { flex: 1 0 auto }
-		header, main, footer { padding-left: 275px }
+		header, main, footer { padding-left: 260px }
 		@media only screen and (max-width : 992px) {header, main, footer { padding-left: 0} }
 		input[type="text"]:not(.browser-default):focus:not([readonly]),
 		input[type="password"]:not(.browser-default):focus:not([readonly]) { border-bottom: #6e6e6e; box-shadow: 0 1px 0 0 #6e6e6e; }
@@ -21,10 +21,11 @@
 		.padding { padding-top: 3.6rem; }
 		.nav-bg { background-color: #69F4BD; box-shadow: 0px 0px transparent; width: 260px; }
 		.body-bg { background-color: #FEFEFE; }
-		#toast-container { text-align: center; }
 		.mono { font-family: 'Courier Prime', monospace; }
 		.btn:hover, .btn-large:hover, .btn-small:hover { background-color: transparent; }
 		.title { text-transform: capitalize; }
+		.toast { background-color: #69F4BD; box-shadow: 0px 0px transparent; color: #222; }
+		#toast-container {top: 5%; bottom: auto !important; }
 	</style>
 </head>
 <body class="body-bg">
@@ -73,7 +74,8 @@
 			{% if messages %}
 				{% for category, message in messages %}
 				    M.toast({
-				    	html: '<span>{{ message }}</span>'
+				    	html: '{{ message }}',
+				    	classes: 'toast'
 				});
 				{% endfor %}
 			{% endif %}
