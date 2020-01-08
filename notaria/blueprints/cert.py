@@ -18,6 +18,9 @@ def index():
 @login_required
 def upload():
 
+    privkey, address = get_keychain(session['user'])
+    unspent = get_unspent(address)
+
     form = upload_form()
 
     if form.validate_on_submit():
@@ -25,6 +28,7 @@ def upload():
         content = form.document.data.stream.read()
 
         flash("%s (%.2f kb) subido exitosamente" % (filename, len(content)/1024))
+        return redirect(url_for('cert.index'))
 
 
-    return render_template('upload.html', form=form)
+    return render_template('upload.html', form=form, unspent=unspent)

@@ -3,7 +3,12 @@
 
 <div class="row">
 	<div class="col l8 offset-l2">
-		<h3 class="title">Crear certificado</h3>
+        <h3 class="title">Crear certificado</h3>
+        <p>
+            <b>Saldo:</b> <span class="mono">{{ unspent['confirmed'] }} CHA</span>
+            <br>
+            <b>Valor del certificado:</b> <span class="mono">1.00000000 CHA</span>
+        </p>
 		<div class="row">
 			<form action="{{ url_for('cert.upload') }}" method="POST" enctype="multipart/form-data">
 				{{ form.csrf_token }}
@@ -23,7 +28,7 @@
 					</button>
 				</div>
 			</div>
-		</div>
+        </div>
 	</div>
 </div>
 
