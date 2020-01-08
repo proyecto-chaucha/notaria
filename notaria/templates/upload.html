@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="row">
+	<div class="col l8 offset-l2">
+		<h3 class="title">Crear certificado</h3>
+		<div class="row">
+			<form action="{{ url_for('cert.upload') }}" method="POST" enctype="multipart/form-data">
+				{{ form.csrf_token }}
+				
+				<div class="row">
+                    <div class="file-field input-field">
+                        <div class="btn btn-flat color">
+                            <span>{{ form.document.label.text }}</span>
+                        </div>
+                            {{ form.document }}
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+					<button class="btn right white btn-flat" type="submit" name="action">
+						<i class="material-icons">send</i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+

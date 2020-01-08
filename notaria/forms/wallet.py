@@ -1,7 +1,7 @@
 from flask import flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, DecimalField
-from wtforms.validators import DataRequired, Length, NumberRange, ValidationError
+from wtforms.validators import DataRequired
 
 
 class send_form(FlaskForm):

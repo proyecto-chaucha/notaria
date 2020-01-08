@@ -19,12 +19,13 @@
 		input[type="password"]:not(.browser-default):focus:not([readonly]) + label { color: #6e6e6e; }
 		ul.sidenav.sidenav-fixed ul.collapsible-accordion a.collapsible-header{ padding:0 30px }
 		.padding { padding-top: 3.6rem; }
-		.nav-bg { background-color: #69F4BD; box-shadow: 0px 0px transparent; width: 260px; }
+		.color { background-color: #69F4BD; }
+		.nav-bg { box-shadow: 0px 0px transparent; width: 260px; }
 		.body-bg { background-color: #FEFEFE; }
 		.mono { font-family: 'Courier Prime', monospace; }
 		.btn:hover, .btn-large:hover, .btn-small:hover { background-color: transparent; }
 		.title { text-transform: capitalize; }
-		.toast { background-color: #69F4BD; box-shadow: 0px 0px transparent; color: #222; }
+		.toast { box-shadow: 0px 0px transparent; color: #222; }
 		#toast-container {top: 5%; bottom: auto !important; }
 	</style>
 </head>
@@ -43,7 +44,7 @@
 		<a href="#" data-target="nav-mobile" class="btn btn-flat btn-large sidenav-trigger"><i class="material-icons">menu</i></a>
 		</div>
 
-		<ul id="nav-mobile" class="sidenav sidenav-fixed nav-bg padding">
+		<ul id="nav-mobile" class="sidenav sidenav-fixed nav-bg color padding">
 			{% if session['user'] %}
 				{% include 'nav/admin.html' %}
 			{% else %}
@@ -75,7 +76,7 @@
 				{% for category, message in messages %}
 				    M.toast({
 				    	html: '{{ message }}',
-				    	classes: 'toast'
+				    	classes: 'toast color'
 				});
 				{% endfor %}
 			{% endif %}

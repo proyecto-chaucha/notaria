@@ -22,7 +22,7 @@ def send():
     privkey, address = get_keychain(session['user'])
     unspent = get_unspent(address)
 
-    form = send_form(request.form)
+    form = send_form()
     if form.validate_on_submit():
         tx = create_tx(session['user'], form, 'hola')
         flash(tx)

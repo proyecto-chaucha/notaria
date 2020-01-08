@@ -36,7 +36,7 @@ def login():
 @bp.route('/register', methods=['GET', 'POST'])
 @login_restricted
 def register():
-    form = register_form(request.form)
+    form = register_form()
 
     if form.validate_on_submit():
         valid_registration = register_user(form)
