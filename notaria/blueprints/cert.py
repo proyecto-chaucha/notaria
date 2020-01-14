@@ -31,8 +31,8 @@ def upload():
         else:
             flash("error al procesar el archivo")
 
-
     return render_template('upload.html', form=form, unspent=unspent)
+
 
 @bp.route('/view/<string:sha3>')
 @login_required
