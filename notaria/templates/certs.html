@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block body %}
+
+<h2 class="title">Certificados</h2>
+
+<table>
+	<thead>
+		<tr>
+			<th>nombre</th>
+			<th>Tamaño</th>
+			<th>Hash</th>
+			<th>Certificado</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for cert in certs %}
+	<tr>
+		<td>{{cert.filename}}</td>
+		<td>{{(cert.size/1024)|round(2) }} kb</td>
+		<td class="mono">{{cert.sha3}}</td>
+		<td><a href="{{ url_for('cert.view', sha3=cert.sha3) }}">ver más</a></td>
+	</tr>
+	{% endfor %}	
+	</tbody>
+</table>
+
+{% endblock %}

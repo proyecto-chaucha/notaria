@@ -2,8 +2,9 @@ from flask import Blueprint, render_template, session, redirect, url_for, flash
 
 from notaria.blueprints.restrictions import login_required, login_restricted
 from notaria.functions.wallet import get_keychain, get_unspent, create_tx
+from notaria.functions.cert import process_file
 from notaria.forms.cert import upload_form
-from werkzeug.utils import secure_filename
+from notaria.models.cert import cert_model
 
 bp = Blueprint('cert', __name__, url_prefix='/cert')
 
@@ -11,7 +12,8 @@ bp = Blueprint('cert', __name__, url_prefix='/cert')
 @bp.route('/')
 @login_required
 def index():
-    return render_template('index.html')
+    certs = cert_model.query.filter_by(username=session['user']).all()
+    return render_template('certs.html', certs=certs)
 
 
 @bp.route("/upload", methods=['GET', 'POST'])
@@ -24,11 +26,17 @@ def upload():
     form = upload_form()
 
     if form.validate_on_submit():
-        filename = secure_filename(form.document.data.filename)
-        content = form.document.data.stream.read()
-
-        flash("%s (%.2f kb) subido exitosamente" % (filename, len(content)/1024))
-        return redirect(url_for('cert.index'))
+        if process_file(session['user'], form):
+            return redirect(url_for('cert.index'))
+        else:
+            flash("error al procesar el archivo")
 
 
     return render_template('upload.html', form=form, unspent=unspent)
+
+@bp.route('/view/<string:sha3>')
+@login_required
+def view(sha3):
+    flash(sha3)
+    certs = cert_model.query.filter_by(username=session['user']).all()
+    return render_template('certs.html', certs=certs)

@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from flask_qrcode import QRcode
 from flask.cli import with_appcontext
+from flask_uploads import patch_request_class
 
 
 db = SQLAlchemy()
@@ -17,6 +18,7 @@ def create_app():
     csrf_protect.init_app(app)
     db.init_app(app)
     qrcode.init_app(app)
+    patch_request_class(app, size=2*1024*1024)
 
     from notaria.blueprints import index, wallet, cert
     app.register_blueprint(index.bp)

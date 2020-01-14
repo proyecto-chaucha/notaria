@@ -8,7 +8,10 @@
             <b>Saldo:</b> <span class="mono">{{ unspent['confirmed'] }} CHA</span>
             <br>
             <b>Valor del certificado:</b> <span class="mono">1.00000000 CHA</span>
+            <br>
+            <b>Tamaño máximo:</b> 2 Mb</b>
         </p>
+        <br>
 		<div class="row">
 			<form action="{{ url_for('cert.upload') }}" method="POST" enctype="multipart/form-data">
 				{{ form.csrf_token }}
