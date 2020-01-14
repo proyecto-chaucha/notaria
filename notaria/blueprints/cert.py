@@ -5,6 +5,7 @@ from notaria.functions.wallet import get_keychain, get_unspent, create_tx
 from notaria.functions.cert import process_file
 from notaria.forms.cert import upload_form
 from notaria.models.cert import cert_model
+from sqlite3 import OperationalError
 
 bp = Blueprint('cert', __name__, url_prefix='/cert')
 
@@ -12,7 +13,10 @@ bp = Blueprint('cert', __name__, url_prefix='/cert')
 @bp.route('/')
 @login_required
 def index():
-    certs = cert_model.query.filter_by(username=session['user']).all()
+    try:
+        certs = cert_model.query.filter_by(username=session['user']).all()
+    except OperationalError:
+        certs = []
     return render_template('certs.html', certs=certs)
 
 

@@ -8,3 +8,4 @@ class cert_model(db.Model):
     filename = db.Column(db.String(64), unique=True, nullable=False)
     size = db.Column(db.Integer, unique=False, nullable=False)
     sha3 = db.Column(db.String(64), unique=True, nullable=False)
+    txid = db.Column(db.String(64), unique=True, nullable=False)
