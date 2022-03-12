@@ -20,7 +20,7 @@ Jinja2==2.10.3
 MarkupSafe==1.1.1
 passlib==1.7.2
 pathspec==0.6.0
-Pillow==7.0.0
+Pillow==9.0.1
 pycparser==2.19
 qrcode==6.1
 regex==2019.12.9
